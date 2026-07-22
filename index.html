@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Débora Cornelio — Android Developer Junior</title>
+<meta name="description" content="Débora Cornelio Vargas · Estudiante de Ingeniería de Software con IA en SENATI. Android Developer con una app real en producción. Kotlin · MVVM · APIs REST · Desarrollo asistido por IA."/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* ═══════ TOKENS · OSCURO (default) ═══════ */
+:root{
+  --bg:#0B0910;
+  --bg-2:#110E18;
+  --card:#161221;
+  --card-2:#1D1730;
+  --border:#2A2240;
+  --border-hi:#3D3260;
+  --ink:#F5F2FC;
+  --text:#E9E4F5;
+  --muted:#9C92B8;
+  --violet:#A78BFA;
+  --violet-vivid:#8B5CF6;
+  --violet-dim:rgba(139,92,246,.14);
+  --coral:#FB7185;
+  --coral-dim:rgba(251,113,133,.12);
+  --amber:#FBBF24;
+  --mint:#34D399;
+  --glass:rgba(17,14,24,.72);
+  --shadow-md:0 4px 12px rgba(0,0,0,.4),0 16px 48px rgba(0,0,0,.5);
+  --shadow-lg:0 12px 32px rgba(0,0,0,.5),0 32px 80px rgba(0,0,0,.55);
+  --glow:rgba(139,92,246,.16);
+  --phone-body:linear-gradient(160deg,#241B3A,#120D1E);
+  --mono:'JetBrains Mono',monospace;
+}
+[data-theme="light"]{
+  --bg:#FAF8FF;
+  --bg-2:#FFFFFF;
+  --card:#FFFFFF;
+  --card-2:#F3EFFC;
+  --border:#E6DFF5;
+  --border-hi:#CFC2EC;
+  --ink:#181128;
+  --text:#2A2140;
+  --muted:#6D6288;
+  --violet:#7C3AED;
+  --violet-vivid:#7C3AED;
+  --violet-dim:rgba(124,58,237,.09);
+  --coral:#E11D48;
+  --coral-dim:rgba(225,29,72,.08);
+  --amber:#D97706;
+  --mint:#059669;
+  --glass:rgba(255,255,255,.75);
+  --shadow-md:0 4px 12px rgba(24,17,40,.07),0 16px 48px rgba(24,17,40,.09);
+  --shadow-lg:0 12px 32px rgba(24,17,40,.1),0 32px 80px rgba(24,17,40,.13);
+  --glow:rgba(124,58,237,.12);
+  --phone-body:linear-gradient(160deg,#332A4E,#1B1430);
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Inter',sans-serif;font-weight:300;line-height:1.7;
+  overflow-x:hidden;transition:background .4s,color .4s;
+}
+::selection{background:var(--violet-vivid);color:#fff}
+
+h1,h2,h3{font-family:'Sora',sans-serif;color:var(--ink);line-height:1.2}
+a{color:inherit;text-decoration:none}
+.mono{font-family:var(--mono)}
+
+/* ═══════ FONDO AMBIENTAL ═══════ */
+.orbs{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+.orb.a{width:520px;height:520px;background:var(--glow);top:-160px;right:-120px}
+.orb.b{width:420px;height:420px;background:var(--coral-dim);bottom:10%;left:-160px}
+
+/* ═══════ NAV ═══════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  backdrop-filter:blur(14px);background:var(--glass);
+  border-bottom:1px solid var(--border);
+  transition:background .4s;
+}
+.nav-in{max-width:1080px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:20px}
+.logo{font-family:var(--mono);font-weight:600;font-size:15px;color:var(--ink)}
+.logo em{color:var(--violet);font-style:normal}
+.nav-links{margin-left:auto;display:flex;gap:22px;font-size:13.5px;font-weight:500;color:var(--muted)}
+.nav-links a{transition:color .2s}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--violet)}
+#themeBtn{
+  margin-left:6px;width:34px;height:34px;border-radius:10px;cursor:pointer;
+  border:1px solid var(--border);background:var(--card);color:var(--ink);
+  font-size:15px;display:grid;place-items:center;transition:border-color .2s;
+}
+#themeBtn:hover{border-color:var(--violet)}
+@media(max-width:720px){.nav-links{display:none}}
+
+/* ═══════ LAYOUT ═══════ */
+section{max-width:1080px;margin:0 auto;padding:88px 24px}
+.eyebrow{
+  font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--violet);display:flex;align-items:center;gap:10px;margin-bottom:14px;
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--violet)}
+h2{font-size:clamp(26px,4vw,34px);font-weight:700;margin-bottom:34px}
+
+/* ═══════ HERO ═══════ */
+#home{padding-top:150px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center;min-height:92vh}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:12.5px;font-weight:500;
+  border:1px solid var(--border-hi);border-radius:99px;padding:6px 14px;
+  color:var(--muted);margin-bottom:22px;background:var(--card);
+}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--mint);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+h1{font-size:clamp(38px,6vw,58px);font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
+h1 .grad{
+  background:linear-gradient(100deg,var(--violet) 10%,var(--coral) 90%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.tagline{font-size:clamp(17px,2.2vw,21px);color:var(--muted);font-weight:400;margin-bottom:18px}
+.tagline b{color:var(--ink);font-weight:600}
+.typer-line{font-family:var(--mono);font-size:14.5px;color:var(--violet);margin-bottom:30px;min-height:24px}
+.typer-line::before{content:"› ";color:var(--muted)}
+.caret{display:inline-block;width:9px;background:var(--violet);animation:blink 1s steps(1) infinite;color:transparent}
+@keyframes blink{50%{opacity:0}}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:44px}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:14.5px;
+  padding:13px 24px;border-radius:14px;transition:transform .2s,box-shadow .2s;cursor:pointer;border:0;
+}
+.btn:active{transform:scale(.97)}
+.btn.solid{background:linear-gradient(100deg,var(--violet-vivid),#6D28D9);color:#fff;box-shadow:0 8px 24px var(--glow)}
+.btn.solid:hover{transform:translateY(-2px);box-shadow:0 14px 34px var(--glow)}
+.btn.ghost{border:1px solid var(--border-hi);color:var(--ink);background:var(--card)}
+.btn.ghost:hover{border-color:var(--violet)}
+
+/* Barra de nivel — elemento firma */
+.level{max-width:430px}
+.level-top{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:13px;margin-bottom:9px}
+.level-top .lv{color:var(--ink);font-weight:600}
+.level-top .lv em{font-style:normal;color:var(--violet)}
+.level-top .xp{color:var(--muted)}
+.bar{height:11px;border-radius:99px;background:var(--card-2);border:1px solid var(--border);overflow:hidden;position:relative}
+.bar-fill{
+  height:100%;width:0;border-radius:99px;
+  background:linear-gradient(90deg,var(--violet-vivid),var(--coral));
+  transition:width 1.6s cubic-bezier(.22,1,.36,1);
+  position:relative;
+}
+.bar-fill::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);
+  transform:translateX(-100%);animation:shine 2.6s 1.8s infinite;
+}
+@keyframes shine{to{transform:translateX(100%)}}
+.level-note{font-size:12.5px;color:var(--muted);margin-top:9px}
+.level-note b{color:var(--ink);font-weight:600}
+
+/* ═══════ TELÉFONO ═══════ */
+.phone-wrap{display:flex;justify-content:center;perspective:1200px}
+.phone{
+  width:262px;border-radius:38px;padding:12px;
+  background:var(--phone-body);box-shadow:var(--shadow-lg);
+  transform:rotate(4deg);transition:transform .5s;
+}
+.phone:hover{transform:rotate(0deg) translateY(-6px)}
+.screen{border-radius:28px;overflow:hidden;background:#14101F;border:1px solid rgba(255,255,255,.06)}
+.notch{height:26px;display:flex;justify-content:center;align-items:center}
+.notch i{width:74px;height:7px;border-radius:99px;background:rgba(255,255,255,.14)}
+.app{padding:14px 15px 20px;font-size:11px;color:#CBC3E3}
+.app-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}
+.app-head .t{font-family:'Sora';font-weight:700;font-size:14px;color:#fff}
+.app-head .t em{font-style:normal;color:#A78BFA}
+.chip-balance{
+  border-radius:16px;padding:13px 14px;margin-bottom:12px;
+  background:linear-gradient(120deg,#7C3AED,#DB2777);color:#fff;
+}
+.chip-balance .lbl{font-size:9.5px;opacity:.85;letter-spacing:.06em;text-transform:uppercase}
+.chip-balance .amt{font-family:var(--mono);font-size:19px;font-weight:600;margin-top:2px}
+.chip-balance .up{font-size:9.5px;margin-top:4px;display:inline-block;background:rgba(255,255,255,.2);border-radius:99px;padding:2px 8px}
+.mods{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mod{background:#1D1730;border:1px solid #2A2240;border-radius:13px;padding:10px}
+.mod .ic{font-size:14px}
+.mod .nm{font-weight:600;color:#fff;font-size:10.5px;margin-top:5px}
+.mod .ds{font-size:8.8px;color:#8C81AC;line-height:1.4;margin-top:2px}
+.app-bar{display:flex;justify-content:space-around;padding:10px 6px 4px;border-top:1px solid #241C38;margin-top:12px;font-size:13px;opacity:.85}
+
+/* ═══════ SOBRE MÍ ═══════ */
+.about-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:40px;align-items:start}
+.about-txt p{margin-bottom:16px;font-size:16px}
+.about-txt b{color:var(--ink);font-weight:600}
+.hl{color:var(--violet);font-weight:600}
+.stats{display:grid;gap:14px}
+.stat{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;
+  padding:18px 20px;transition:transform .25s,border-color .25s;
+}
+.stat:hover{transform:translateY(-3px);border-color:var(--violet)}
+.stat .n{font-family:'Sora';font-size:30px;font-weight:800;color:var(--ink)}
+.stat .n em{font-style:normal;color:var(--violet)}
+.stat .l{font-size:13px;color:var(--muted);margin-top:2px}
+
+/* ═══════ EXPERIENCIA ═══════ */
+.exp-card{
+  background:var(--card);border:1px solid var(--border);border-radius:22px;
+  padding:30px;box-shadow:var(--shadow-md);
+}
+.exp-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.exp-head h3{font-size:19px;font-weight:700}
+.exp-date{font-family:var(--mono);font-size:13px;color:var(--violet);background:var(--violet-dim);border-radius:99px;padding:5px 14px;height:fit-content}
+.exp-sub{font-size:14px;color:var(--muted);font-style:italic;margin-bottom:22px}
+.mod-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:22px}
+.mcard{
+  background:var(--card-2);border:1px solid var(--border);border-radius:16px;padding:16px;
+  transition:transform .25s,border-color .25s;
+}
+.mcard:hover{transform:translateY(-3px);border-color:var(--violet)}
+.mcard .ic{font-size:19px}
+.mcard h4{font-family:'Sora';font-size:14px;font-weight:600;color:var(--ink);margin:8px 0 4px}
+.mcard p{font-size:12.8px;color:var(--muted);line-height:1.55}
+.tech-line{font-family:var(--mono);font-size:12.5px;color:var(--muted);line-height:2}
+.tech-line span{color:var(--violet)}
+
+/* ═══════ SKILLS ═══════ */
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.sk{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px;
+  transition:transform .25s,border-color .25s;
+}
+.sk:hover{transform:translateY(-3px);border-color:var(--violet)}
+.sk h3{font-size:15px;font-weight:600;display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.sk h3 .ic{font-size:17px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{
+  font-family:var(--mono);font-size:12px;padding:5px 11px;border-radius:99px;
+  background:var(--card-2);border:1px solid var(--border);color:var(--text);
+  transition:border-color .2s,color .2s;
+}
+.chip:hover{border-color:var(--violet);color:var(--violet)}
+.sk.ia{border-color:var(--border-hi);background:linear-gradient(140deg,var(--card),var(--violet-dim))}
+.sk.ia .tagIA{font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.6}
+
+/* ═══════ EDUCACIÓN ═══════ */
+.edu{
+  display:flex;gap:20px;background:var(--card);border:1px solid var(--border);
+  border-radius:22px;padding:28px;align-items:flex-start;box-shadow:var(--shadow-md);
+}
+.edu .ic{
+  width:52px;height:52px;border-radius:15px;background:var(--violet-dim);
+  display:grid;place-items:center;font-size:23px;flex-shrink:0;
+}
+.edu h3{font-size:17px;font-weight:700;margin-bottom:4px}
+.edu .st{font-family:var(--mono);font-size:12.5px;color:var(--mint);margin-bottom:8px}
+.edu p{font-size:14px;color:var(--muted)}
+
+/* ═══════ CONTACTO ═══════ */
+#contact{text-align:center;padding-bottom:110px}
+#contact h2{margin-bottom:14px}
+#contact .sub{color:var(--muted);max-width:520px;margin:0 auto 34px;font-size:16px}
+.contact-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+footer{border-top:1px solid var(--border);padding:26px 24px;text-align:center;font-size:13px;color:var(--muted)}
+footer .mono{color:var(--violet)}
+
+/* ═══════ REVEAL ═══════ */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+
+@media(max-width:880px){
+  #home{grid-template-columns:1fr;padding-top:120px;min-height:auto;gap:40px}
+  .phone-wrap{order:-1}
+  .phone{width:230px}
+  .about-grid{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:560px){.stats{grid-template-columns:1fr 1fr}}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="orbs" aria-hidden="true"><div class="orb a"></div><div class="orb b"></div></div>
+
+<nav>
+  <div class="nav-in">
+    <a class="logo" href="#home">debora<em>.dev</em></a>
+    <div class="nav-links">
+      <a href="#about">Sobre mí</a>
+      <a href="#experience">Experiencia</a>
+      <a href="#skills">Skills</a>
+      <a href="#education">Educación</a>
+      <a href="#contact">Contacto</a>
+    </div>
+    <button id="themeBtn" aria-label="Cambiar tema">☀️</button>
+  </div>
+</nav>
+
+<!-- ═══════ HERO ═══════ -->
+<section id="home">
+  <div>
+    <span class="badge"><span class="dot"></span> Disponible para rol Junior / Trainee</span>
+    <h1>Débora<br/><span class="grad">Cornelio Vargas</span></h1>
+    <p class="tagline">Android Developer en formación con <b>una app real en producción</b>.<br/>Poca experiencia en años. <b>Mucha en ganas.</b></p>
+    <p class="typer-line"><span id="typer"></span><span class="caret">|</span></p>
+    <div class="cta-row">
+      <a class="btn solid" href="#experience">Ver mi trabajo ↓</a>
+      <a class="btn ghost" href="mailto:deboracornelio14@gmail.com">✉️ Escríbeme</a>
+    </div>
+    <div class="level" aria-label="Nivel de desarrollo profesional">
+      <div class="level-top">
+        <span class="lv">NIVEL <em>Junior</em></span>
+        <span class="xp mono" id="xpTxt">0 XP</span>
+      </div>
+      <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+      <p class="level-note">Subiendo de nivel <b>todos los días</b> — cada línea de código suma.</p>
+    </div>
+  </div>
+
+  <div class="phone-wrap">
+    <div class="phone" aria-label="Vista de Binvi App">
+      <div class="screen">
+        <div class="notch"><i></i></div>
+        <div class="app">
+          <div class="app-head">
+            <span class="t">binvi<em>.app</em></span>
+            <span>🔔</span>
+          </div>
+          <div class="chip-balance">
+            <div class="lbl">Mi inversión</div>
+            <div class="amt">S/ 12,480.00</div>
+            <span class="up">▲ +8.4% valorización</span>
+          </div>
+          <div class="mods">
+            <div class="mod"><div class="ic">📊</div><div class="nm">Instrumentos</div><div class="ds">Proyectos en venta, plazos y tiempos</div></div>
+            <div class="mod"><div class="ic">🔔</div><div class="nm">Notificaciones</div><div class="ds">Alertas e inversiones activas</div></div>
+            <div class="mod"><div class="ic">💼</div><div class="nm">Portafolio</div><div class="ds">Proyectos adquiridos</div></div>
+            <div class="mod"><div class="ic">📈</div><div class="nm">Analytics</div><div class="ds">Valorización y rendimiento</div></div>
+          </div>
+          <div class="app-bar"><span>🏠</span><span>📊</span><span>💼</span><span>👤</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ SOBRE MÍ ═══════ -->
+<section id="about">
+  <p class="eyebrow reveal">Sobre mí</p>
+  <h2 class="reveal">Talento en construcción, código en producción</h2>
+  <div class="about-grid">
+    <div class="about-txt reveal">
+      <p>Soy estudiante de <b>Ingeniería de Software con Inteligencia Artificial</b> en SENATI — y mientras estudio, ya construí algo real: los módulos principales de <span class="hl">Binvi App</span>, una aplicación de inversiones inmobiliarias que usuarios reales usan hoy.</p>
+      <p>Trabajo con <b>Kotlin, arquitectura MVVM y APIs REST</b>, y desarrollo apoyándome en herramientas de IA — <span class="hl">Claude, ChatGPT, Gemini y DeepSeek</span> — no como atajo, sino como multiplicador: me ayudan a analizar, depurar y aprender más rápido de lo que podría sola.</p>
+      <p>No tengo años de trayectoria que mostrar. Tengo algo que en un perfil junior vale más: <b>ganas reales de crecer, aprender de un buen equipo y dar lo mejor de mí en cada reto.</b></p>
+    </div>
+    <div class="stats reveal">
+      <div class="stat"><div class="n">1</div><div class="l">app en producción</div></div>
+      <div class="stat"><div class="n">5</div><div class="l">módulos desarrollados</div></div>
+      <div class="stat"><div class="n"><em>∞</em></div><div class="l">ganas de aprender</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ EXPERIENCIA ═══════ -->
+<section id="experience">
+  <p class="eyebrow reveal">Experiencia</p>
+  <h2 class="reveal">Lo que ya construí</h2>
+  <div class="exp-card reveal">
+    <div class="exp-head">
+      <h3>Desarrolladora Android · Freelance</h3>
+      <span class="exp-date">2025 — 2026</span>
+    </div>
+    <p class="exp-sub">Binvi App · aplicación móvil de inversiones inmobiliarias en tiempo real</p>
+    <div class="mod-grid">
+      <div class="mcard"><div class="ic">📊</div><h4>Instrumentos</h4><p>Visualización de proyectos en venta con detalle de descripción, plazos y tiempos de inversión.</p></div>
+      <div class="mcard"><div class="ic">🔔</div><h4>Notificaciones</h4><p>Alertas dinámicas y listado de inversiones activas del usuario.</p></div>
+      <div class="mcard"><div class="ic">💼</div><h4>Portafolio</h4><p>Gestión de los proyectos adquiridos por cada usuario.</p></div>
+      <div class="mcard"><div class="ic">📈</div><h4>Analytics</h4><p>Métricas de valorización y rendimiento de propiedades.</p></div>
+      <div class="mcard"><div class="ic">🔌</div><h4>Integración backend</h4><p>Consumo de servicios REST con Retrofit, manejando estados de carga y errores.</p></div>
+    </div>
+    <p class="tech-line"><span>stack ›</span> Kotlin · Java · MVVM · XML · Android Jetpack · Room · Firebase · Retrofit · Git · Scrum</p>
+  </div>
+</section>
+
+<!-- ═══════ SKILLS ═══════ -->
+<section id="skills">
+  <p class="eyebrow reveal">Skills</p>
+  <h2 class="reveal">Con qué trabajo</h2>
+  <div class="skill-grid">
+    <div class="sk reveal">
+      <h3><span class="ic">📱</span> Mobile</h3>
+      <div class="chips"><span class="chip">Kotlin</span><span class="chip">Java</span><span class="chip">Jetpack Compose</span><span class="chip">XML</span><span class="chip">Material Design</span><span class="chip">Android Studio</span></div>
+    </div>
+    <div class="sk reveal">
+      <h3><span class="ic">🗄️</span> Backend & Datos</h3>
+      <div class="chips"><span class="chip">Node.js</span><span class="chip">ASP.NET Core</span><span class="chip">APIs REST</span><span class="chip">Room (SQLite)</span><span class="chip">SQL Server</span><span class="chip">Firebase</span></div>
+    </div>
+    <div class="sk ia reveal">
+      <h3><span class="ic">🤖</span> Desarrollo asistido por IA</h3>
+      <div class="chips"><span class="chip">Claude</span><span class="chip">ChatGPT</span><span class="chip">Gemini</span><span class="chip">DeepSeek</span></div>
+      <p class="tagIA">Generación, análisis y depuración de código · documentación. La IA como copiloto, el criterio es mío.</p>
+    </div>
+    <div class="sk reveal">
+      <h3><span class="ic">🛠️</span> Herramientas & Métodos</h3>
+      <div class="chips"><span class="chip">Git / GitHub</span><span class="chip">Postman</span><span class="chip">Figma</span><span class="chip">Trello</span><span class="chip">Scrum</span><span class="chip">Kanban</span></div>
+    </div>
+    <div class="sk reveal">
+      <h3><span class="ic">🌐</span> Idiomas</h3>
+      <div class="chips"><span class="chip">Español · nativo</span><span class="chip">Inglés técnico · documentación</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ EDUCACIÓN ═══════ -->
+<section id="education">
+  <p class="eyebrow reveal">Educación</p>
+  <h2 class="reveal">Formándome para lo que viene</h2>
+  <div class="edu reveal">
+    <div class="ic">🎓</div>
+    <div>
+      <h3>Ingeniería de Software con Inteligencia Artificial</h3>
+      <p class="st">● SENATI — En curso</p>
+      <p>Una carrera pensada para el presente del desarrollo: software sólido + IA aplicada. Lo que aprendo en clase lo pruebo en código real la misma semana.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════ CONTACTO ═══════ -->
+<section id="contact">
+  <p class="eyebrow reveal" style="justify-content:center">Contacto</p>
+  <h2 class="reveal">¿Buscas potencial? Hablemos.</h2>
+  <p class="sub reveal">Si tu equipo necesita a alguien con base técnica real, humildad para aprender y energía para crecer — esa soy yo.</p>
+  <div class="contact-row reveal">
+    <a class="btn solid" href="mailto:deboracornelio14@gmail.com">✉️ deboracornelio14@gmail.com</a>
+    <a class="btn ghost" href="https://www.linkedin.com/in/debora-cornelio-vargas-42457638b" target="_blank" rel="noopener">in · LinkedIn</a>
+    <a class="btn ghost" href="tel:+51955279608">📞 (+51) 955 279 608</a>
+  </div>
+</section>
+
+<footer>
+  <span class="mono">&lt;/&gt;</span> Débora Cornelio Vargas · Lima, Perú · <span id="year"></span>
+</footer>
+
+<script>
+// Año
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Tema claro/oscuro
+const btn = document.getElementById('themeBtn');
+const root = document.documentElement;
+btn.addEventListener('click', () => {
+  const dark = root.getAttribute('data-theme') === 'dark';
+  root.setAttribute('data-theme', dark ? 'light' : 'dark');
+  btn.textContent = dark ? '🌙' : '☀️';
+});
+
+// Typer
+const phrases = [
+  'Kotlin · MVVM · APIs REST',
+  'estudiante en SENATI — Ing. de Software con IA',
+  'una app real en producción: Binvi',
+  'desarrollo asistido por IA: Claude · ChatGPT · Gemini',
+  'aprendo rápido. crezco más rápido.'
+];
+const typer = document.getElementById('typer');
+let pi = 0, ci = 0, del = false;
+function type(){
+  const p = phrases[pi];
+  typer.textContent = p.slice(0, ci);
+  if(!del){
+    if(ci < p.length){ ci++; setTimeout(type, 46); }
+    else { del = true; setTimeout(type, 1900); }
+  } else {
+    if(ci > 0){ ci--; setTimeout(type, 22); }
+    else { del = false; pi = (pi+1) % phrases.length; setTimeout(type, 350); }
+  }
+}
+type();
+
+// Barra XP — firma
+const fill = document.getElementById('barFill');
+const xpTxt = document.getElementById('xpTxt');
+let started = false;
+function startXP(){
+  if(started) return; started = true;
+  fill.style.width = '38%';
+  let xp = 0; const goal = 380;
+  const iv = setInterval(() => {
+    xp += 7;
+    if(xp >= goal){ xp = goal; clearInterval(iv); xpTxt.textContent = goal + ' XP · en ascenso'; return; }
+    xpTxt.textContent = xp + ' XP';
+  }, 24);
+}
+setTimeout(startXP, 600);
+
+// Reveal on scroll
+const obs = new IntersectionObserver(es => {
+  es.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); } });
+}, {threshold:.12});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
